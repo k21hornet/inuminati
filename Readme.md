@@ -1,3 +1,0 @@
-# Inuminati
-
-A new dog community is coming soon...
