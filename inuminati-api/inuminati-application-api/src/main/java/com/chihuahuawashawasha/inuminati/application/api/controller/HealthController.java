@@ -1,4 +1,4 @@
-package com.chihuahuawashawasha.inuminati.controller;
+package com.chihuahuawashawasha.inuminati.application.api.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

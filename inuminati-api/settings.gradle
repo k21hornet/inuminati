@@ -1,1 +1,3 @@
 rootProject.name = 'inuminati-api'
+
+include 'inuminati-application-api'
