@@ -1,4 +1,4 @@
-import Sidebar from "@/component/base/Sidebar";
+import Sidebar from "@/components/base/Sidebar";
 
 export default function RootLayout({
   children,
@@ -6,9 +6,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex w-full h-screen overflow-hidden">
       <Sidebar />
-      <div className="flex-1 p-4">{children}</div>
+      <div className="flex-1 p-4 overflow-y-auto">{children}</div>
     </div>
   );
 }

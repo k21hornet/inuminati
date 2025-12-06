@@ -7,6 +7,7 @@ import com.chihuahuawashawasha.inuminati.user.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,10 +20,9 @@ public class UserController {
 
     private final ProfileResponseMapper profileResponseMapper;
 
-    @GetMapping("/profile")
-    public ResponseEntity<ProfileResponse> getProfile() {
-        // FIXME
-        ProfileDto profileDto = profileService.findProfile(1L);
+    @GetMapping("/{userId}")
+    public ResponseEntity<ProfileResponse> getProfile(@PathVariable Long userId) {
+        ProfileDto profileDto = profileService.findProfile(userId);
         return ResponseEntity.ok(profileResponseMapper.toResponse(profileDto));
     }
 }

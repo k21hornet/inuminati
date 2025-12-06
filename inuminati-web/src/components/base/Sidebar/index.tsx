@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function Sidebar() {
   return (
-    <div className="flex flex-col w-72 p-4 border-r border-gray-300">
+    <div className="flex flex-col w-72 h-screen p-4 border-r border-gray-300">
       <div className="mb-4 px-2 py-4 text-3xl">
         <Link href="/">Inuminati</Link>
       </div>
@@ -57,7 +57,10 @@ export default function Sidebar() {
           </Link>
         </li>
         <li className="px-2 py-3 text-lg hover:bg-gray-100 rounded">
-          <Link href="/users" className="flex gap-2 items-center block w-full">
+          <Link
+            href="/users/1"
+            className="flex gap-2 items-center block w-full"
+          >
             <MdAccountCircle />
             プロフィール
           </Link>
