@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     implementation project(':user-domain')
+    implementation project(':post-domain')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'

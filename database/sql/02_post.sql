@@ -2,7 +2,7 @@ CREATE TABLE inuminati_db.posts
 (
     post_id             BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '投稿ID',
     user_id             BIGINT          NOT NULL        COMMENT 'ユーザーID',
-    content             TEXT            NOT NULL        COMMENT '投稿内容',
+    content             TEXT                            COMMENT '投稿内容',
     created_at          DATETIME        NOT NULL,
     updated_at          DATETIME        NOT NULL,
     deleted_at          DATETIME,
