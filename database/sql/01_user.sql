@@ -8,7 +8,6 @@ CREATE TABLE inuminati_db.users
     header_image_url    VARCHAR(255)                    COMMENT 'ヘッダー画像URL',
     birth_date          DATE                            COMMENT '生年月日',
     created_at          DATETIME        NOT NULL,
-    updated_at          DATETIME        NOT NULL,
-    deleted_at          DATETIME       
+    updated_at          DATETIME        NOT NULL
 ) COMMENT '[TRANSACTIONAL] ユーザー'
 ;
