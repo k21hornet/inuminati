@@ -11,6 +11,7 @@
 | shop-domain               | ショップ関連                               |
 | inuminati-domain          | その他共通モジュール                       |
 | inuminati-core            | 犬をスクレイピングする                     |
+| batch-domain              | バッチモジュール                           |
 
 ```mermaid
 graph TD
@@ -18,8 +19,11 @@ graph TD
     inuminati-application-api --> post-domain
     inuminati-application-api --> feed-domain
     inuminati-application-api --> shop-domain
+    inuminati-application-api --> inuminati-domain
     user-domain --> inuminati-domain
     post-domain --> inuminati-domain
     feed-domain --> inuminati-domain
     shop-domain --> inuminati-domain
+    batch-domain --> inuminati-core
+    inuminati-core --> inuminati-domain
 ```

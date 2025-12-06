@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation project(':inuminati-domain')
     implementation project(':user-domain')
     implementation project(':post-domain')
 

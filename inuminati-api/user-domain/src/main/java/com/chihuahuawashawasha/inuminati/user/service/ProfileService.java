@@ -1,10 +1,10 @@
 package com.chihuahuawashawasha.inuminati.user.service;
 
+import com.chihuahuawashawasha.inuminati.exception.UserNotFoundException;
 import com.chihuahuawashawasha.inuminati.user.dto.ProfileDto;
 import com.chihuahuawashawasha.inuminati.user.entity.InuminatiUser;
 import com.chihuahuawashawasha.inuminati.user.mapper.ProfileMapper;
 import com.chihuahuawashawasha.inuminati.user.repository.InuminatiUserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class ProfileService {
      */
     public ProfileDto findProfile(Long userId) {
         InuminatiUser user = inuminatiUserRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("ユーザーが見つかりません。user_id: " + userId));
+                .orElseThrow(() -> new UserNotFoundException("ユーザーが見つかりません。user_id: " + userId));
         return profileMapper.toProfileDto(user);
     }
 }
