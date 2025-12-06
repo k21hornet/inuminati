@@ -9,7 +9,7 @@
 | post-domain               | 投稿の管理                                 |
 | feed-domain               | ユーザーにおすすめを表示                   |
 | shop-domain               | ショップ関連                               |
-| inuminati-common          | その他共通モジュール                       |
+| inuminati-domain          | その他共通モジュール                       |
 | inuminati-core            | 犬をスクレイピングする                     |
 
 ```mermaid
@@ -18,4 +18,8 @@ graph TD
     inuminati-application-api --> post-domain
     inuminati-application-api --> feed-domain
     inuminati-application-api --> shop-domain
+    user-domain --> inuminati-domain
+    post-domain --> inuminati-domain
+    feed-domain --> inuminati-domain
+    shop-domain --> inuminati-domain
 ```
