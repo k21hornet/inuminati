@@ -1,5 +1,6 @@
 rootProject.name = 'inuminati-api'
 
 include 'inuminati-application-api'
-include 'user-domain'
 include 'inuminati-domain'
+include 'post-domain'
+include 'user-domain'
