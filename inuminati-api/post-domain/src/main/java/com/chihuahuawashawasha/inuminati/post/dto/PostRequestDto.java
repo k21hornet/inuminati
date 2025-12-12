@@ -9,8 +9,6 @@ public class PostRequestDto {
 
     private String postId;
 
-    private String userId;
-
     private String content;
 
     private List<PostImageDto> images;

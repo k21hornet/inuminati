@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface InuminatiUserRepository extends JpaRepository<InuminatiUser, String> {
     Optional<InuminatiUser> findByEmail(String email);
+    Optional<InuminatiUser> findByUserName(String userName);
 }

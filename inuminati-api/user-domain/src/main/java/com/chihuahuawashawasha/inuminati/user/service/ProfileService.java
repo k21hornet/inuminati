@@ -18,12 +18,12 @@ public class ProfileService {
 
     /**
      * ユーザーのプロフィールを取得する。
-     * @param userId ユーザーID
+     * @param userName ユーザー名
      * @return プロフィール
      */
-    public ProfileDto findProfile(String userId) {
-        InuminatiUser user = inuminatiUserRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("ユーザーが見つかりません。user_id: " + userId));
+    public ProfileDto findProfile(String userName) {
+        InuminatiUser user = inuminatiUserRepository.findByUserName(userName)
+                .orElseThrow(() -> new UserNotFoundException("ユーザーが見つかりません。user_name: " + userName));
         return profileMapper.toProfileDto(user);
     }
 }

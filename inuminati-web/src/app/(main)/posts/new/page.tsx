@@ -1,6 +1,6 @@
 "use client";
 
-import { createPost, uploadImage } from "@/lib/api/post";
+import { createPost, uploadImage } from "@/actions/post";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -13,14 +13,21 @@ export default function CreatePost() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const uploadedImageUrl = await uploadImage(file);
-    setImageUrl(uploadedImageUrl);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const uploadedImageUrl = await uploadImage(formData);
+      setImageUrl(uploadedImageUrl);
+    } catch (error) {
+      console.error("アップロードエラー:", error);
+      alert("画像のアップロードに失敗しました");
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const postData = {
-      userId: "1", // TODO: 実際のユーザーIDを取得
       content: (e.target as HTMLFormElement).content.value || null,
       images: [
         {

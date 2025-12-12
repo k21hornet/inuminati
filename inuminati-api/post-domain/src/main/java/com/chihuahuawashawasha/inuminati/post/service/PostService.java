@@ -60,14 +60,14 @@ public class PostService {
      * @param postRequestDto リクエスト
      * @return 投稿
      */
-    public PostDto createPost(PostRequestDto postRequestDto) {
+    public PostDto createPost(String userId, PostRequestDto postRequestDto) {
         if (postRequestDto.getImages() == null || postRequestDto.getImages().isEmpty()) {
             throw new RuntimeException("画像は1枚以上必要です");
         }
 
         Post post = new Post();
         post.setPostId(ShortIdGenerator.generateShortId());
-        post.setUserId(postRequestDto.getUserId());
+        post.setUserId(userId);
         post.setContent(postRequestDto.getContent());
 
         List<PostImage> postImages = postRequestDto.getImages().stream()

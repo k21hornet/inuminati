@@ -1,5 +1,6 @@
 package com.chihuahuawashawasha.inuminati.user.service;
 
+import com.chihuahuawashawasha.inuminati.exception.UserNotFoundException;
 import com.chihuahuawashawasha.inuminati.user.entity.InuminatiUser;
 import com.chihuahuawashawasha.inuminati.user.repository.InuminatiUserRepository;
 import com.chihuahuawashawasha.inuminati.util.ShortIdGenerator;
@@ -29,5 +30,27 @@ public class UserService {
             user.setEmail(email);
             inuminatiUserRepository.save(user);
         }
+    }
+
+    /**
+     * メールアドレスからユーザーIDを取得
+     * @param email メールアドレス
+     * @return ユーザーID
+     */
+    public String findUserId(String email) {
+        InuminatiUser user = inuminatiUserRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("ユーザーが見つかりません。email: " + email));
+        return user.getUserId();
+    }
+
+    /**
+     * メールアドレスからユーザー名を取得
+     * @param email メールアドレス
+     * @return ユーザー名
+     */
+    public String findUserName(String email) {
+        InuminatiUser user = inuminatiUserRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("ユーザーが見つかりません。email: " + email));
+        return user.getUserName();
     }
 }

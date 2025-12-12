@@ -5,5 +5,9 @@ export const getProfile = async (userId: string) => {
 };
 
 export const signupUser = async (email: string, accessToken: string) => {
-  return fetcher.post("/signup", { email }, accessToken);
+  return fetcher.post("/auth/signup", { email }, accessToken);
+};
+
+export const getUserName = async () => {
+  return fetcher.get("/auth/me");
 };

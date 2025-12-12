@@ -6,8 +6,12 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
 import Link from "next/link";
+import { getUserName } from "@/lib/api/user";
 
-export default function Sidebar() {
+export default async function Sidebar() {
+  const userNameResponse = await getUserName();
+  const userName = userNameResponse.userName;
+
   return (
     <div className="flex flex-col w-72 h-screen p-4 border-r border-gray-300">
       <div className="mb-4 px-2 py-4 text-3xl">
@@ -68,7 +72,7 @@ export default function Sidebar() {
         </li>
         <li className="px-2 py-3 text-lg hover:bg-gray-100 rounded">
           <Link
-            href="/users/1"
+            href={`/users/${userName}`}
             className="flex gap-2 items-center block w-full"
           >
             <MdAccountCircle />

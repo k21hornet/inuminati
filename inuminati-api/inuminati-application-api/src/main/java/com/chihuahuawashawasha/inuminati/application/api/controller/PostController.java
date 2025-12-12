@@ -8,9 +8,12 @@ import com.chihuahuawashawasha.inuminati.application.api.mapper.PostResponseMapp
 import com.chihuahuawashawasha.inuminati.post.dto.PostDto;
 import com.chihuahuawashawasha.inuminati.post.service.PostService;
 import com.chihuahuawashawasha.inuminati.user.service.ProfileService;
+import com.chihuahuawashawasha.inuminati.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +27,8 @@ public class PostController {
     private final PostService postService;
 
     private final ProfileService profileService;
+
+    private final UserService userService;
 
     private final PostResponseMapper postResponseMapper;
 
@@ -47,11 +52,13 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostResponse> createPost(@Validated @RequestBody PostRequest request) {
-        // ユーザーIDのチェック FIXME 運用を考える
-        profileService.findProfile(request.getUserId());
+    public ResponseEntity<PostResponse> createPost(
+            @AuthenticationPrincipal Jwt jwt,
+            @Validated @RequestBody PostRequest request
+    ) {
+        String userId = userService.findUserId(jwt.getClaimAsString("http://claim/email"));
 
-        PostDto createPostDto = postService.createPost(postRequestMapper.toDto(request));
+        PostDto createPostDto = postService.createPost(userId, postRequestMapper.toDto(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(postResponseMapper.toResponse(createPostDto));
     }
 }
