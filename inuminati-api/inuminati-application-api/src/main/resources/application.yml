@@ -15,3 +15,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jackson:
     time-zone: Asia/Tokyo
+auth0:
+  issuer: ${ISSUER}
+  audience: ${AUDIENCE}
