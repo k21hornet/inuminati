@@ -1,5 +1,6 @@
 import { Auth0Client } from "@auth0/nextjs-auth0/server";
 import { NextResponse } from "next/server";
+import { signupUser } from "./api/user";
 // import { signupUser } from "./api/user";
 
 export const auth0 = new Auth0Client({
@@ -21,11 +22,11 @@ export const auth0 = new Auth0Client({
       );
     }
 
-    // if (session && session.tokenSet.accessToken && session.user.email) {
-    //   const accessToken = session.tokenSet.accessToken;
-    //   const email = session.user.email;
-    //   await signupUser(email, accessToken);
-    // }
+    if (session && session.tokenSet.accessToken && session.user.email) {
+      const accessToken = session.tokenSet.accessToken;
+      const email = session.user.email;
+      await signupUser(email, accessToken);
+    }
 
     return Promise.resolve(
       NextResponse.redirect(

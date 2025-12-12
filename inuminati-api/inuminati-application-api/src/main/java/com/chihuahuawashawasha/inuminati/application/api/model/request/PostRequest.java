@@ -10,10 +10,10 @@ import java.util.List;
 @Data
 public class PostRequest {
 
-    private Long postId;
+    private String postId;
 
     @NotNull(message = "userIdは必須です。")
-    private Long userId;
+    private String userId;
 
     @Size(max = 1000, message = "投稿内容は1000文字以内で入力してください。")
     private String content;

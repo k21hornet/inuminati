@@ -17,7 +17,7 @@ public class PostSave extends AbstractBaseEntity {
     private Long postSaveId;
 
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private String userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")

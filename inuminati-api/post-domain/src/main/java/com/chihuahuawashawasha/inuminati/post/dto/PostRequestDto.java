@@ -7,9 +7,9 @@ import java.util.List;
 @Data
 public class PostRequestDto {
 
-    private Long postId;
+    private String postId;
 
-    private Long userId;
+    private String userId;
 
     private String content;
 

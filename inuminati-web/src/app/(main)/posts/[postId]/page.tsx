@@ -2,7 +2,7 @@ import { getPost } from "@/lib/api/post";
 import Image from "next/image";
 
 type Props = {
-  params: Promise<{ postId: number }>;
+  params: Promise<{ postId: string }>;
 };
 
 type PostImage = {

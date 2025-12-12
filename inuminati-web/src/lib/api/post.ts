@@ -1,7 +1,7 @@
 import { fetcher } from "@/util/fetcher";
 
 type PostData = {
-  userId: number;
+  userId: string;
   content: string | null;
   images: {
     imageUrl: string;
@@ -9,12 +9,12 @@ type PostData = {
   }[];
 };
 
-export const getPosts = async (userId?: number) => {
+export const getPosts = async (userId?: string) => {
   const query = userId ? `?userId=${userId}` : "";
   return fetcher.get(`/posts${query}`);
 };
 
-export const getPost = async (postId: number) => {
+export const getPost = async (postId: string) => {
   return fetcher.get(`/posts/${postId}`);
 };
 

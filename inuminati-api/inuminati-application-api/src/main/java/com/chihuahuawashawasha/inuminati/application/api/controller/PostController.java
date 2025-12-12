@@ -30,7 +30,7 @@ public class PostController {
     private final PostRequestMapper postRequestMapper;
 
     @GetMapping
-    public ResponseEntity<PostsResponse> getPosts(@RequestParam(required = false) Long userId) {
+    public ResponseEntity<PostsResponse> getPosts(@RequestParam(required = false) String userId) {
         List<PostResponse> posts = (userId != null
                 ? postService.findAllByUserId(userId)
                 : postService.findAll())
@@ -41,7 +41,7 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<PostResponse> getPost(@PathVariable Long postId) {
+    public ResponseEntity<PostResponse> getPost(@PathVariable String postId) {
 
         return ResponseEntity.ok(postResponseMapper.toResponse(postService.findPost(postId)));
     }

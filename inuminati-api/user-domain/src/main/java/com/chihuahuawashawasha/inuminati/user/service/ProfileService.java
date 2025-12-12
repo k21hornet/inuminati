@@ -21,7 +21,7 @@ public class ProfileService {
      * @param userId ユーザーID
      * @return プロフィール
      */
-    public ProfileDto findProfile(Long userId) {
+    public ProfileDto findProfile(String userId) {
         InuminatiUser user = inuminatiUserRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("ユーザーが見つかりません。user_id: " + userId));
         return profileMapper.toProfileDto(user);

@@ -6,6 +6,7 @@ import com.chihuahuawashawasha.inuminati.post.entity.Post;
 import com.chihuahuawashawasha.inuminati.post.entity.PostImage;
 import com.chihuahuawashawasha.inuminati.post.mapper.PostMapper;
 import com.chihuahuawashawasha.inuminati.post.repository.PostRepository;
+import com.chihuahuawashawasha.inuminati.util.ShortIdGenerator;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class PostService {
      * ユーザーの全ての投稿を取得する
      * @return 投稿一覧
      */
-    public List<PostDto> findAllByUserId(Long userId) {
+    public List<PostDto> findAllByUserId(String userId) {
         return postRepository.findAllByUserId(userId).stream()
                 .map(postMapper::toDto)
                 .toList();
@@ -48,7 +49,7 @@ public class PostService {
      * @param postId 投稿ID
      * @return 投稿
      */
-    public PostDto findPost(Long postId) {
+    public PostDto findPost(String postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("投稿が見つかりません。post_id: " + postId));
         return postMapper.toDto(post);
@@ -65,6 +66,7 @@ public class PostService {
         }
 
         Post post = new Post();
+        post.setPostId(ShortIdGenerator.generateShortId());
         post.setUserId(postRequestDto.getUserId());
         post.setContent(postRequestDto.getContent());
 

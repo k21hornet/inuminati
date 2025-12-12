@@ -5,13 +5,11 @@ import lombok.Data;
 @Data
 public class ProfileResponse {
 
-    private Long userId;
+    private String userId;
 
     private String userName;
 
     private String selfIntroduction;
 
     private String profileImageUrl;
-
-    private String headerImageUrl;
 }

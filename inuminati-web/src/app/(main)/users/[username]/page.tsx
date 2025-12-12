@@ -4,15 +4,14 @@ import { getProfile } from "@/lib/api/user";
 import Image from "next/image";
 
 type Props = {
-  params: Promise<{ userId: string }>;
+  params: Promise<{ username: string }>;
 };
 
 export default async function Profile({ params }: Props) {
-  const { userId } = await params;
-  const userIdNumber = parseInt(userId, 10);
+  const { username } = await params;
 
-  const profile = await getProfile(userIdNumber);
-  const postsResponse = await getPosts(userIdNumber);
+  const profile = await getProfile(username);
+  const postsResponse = await getPosts(username);
   const posts = postsResponse.posts;
 
   return (

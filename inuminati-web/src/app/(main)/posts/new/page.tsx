@@ -20,7 +20,7 @@ export default function CreatePost() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const postData = {
-      userId: 1, // TODO: 実際のユーザーIDを取得
+      userId: "1", // TODO: 実際のユーザーIDを取得
       content: (e.target as HTMLFormElement).content.value || null,
       images: [
         {

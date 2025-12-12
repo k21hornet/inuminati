@@ -17,7 +17,7 @@ public class PostComment extends AbstractBaseEntity {
     private Long postCommentId;
 
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private String userId;
 
     @Column(name = "comment", nullable = false)
     private String comment;

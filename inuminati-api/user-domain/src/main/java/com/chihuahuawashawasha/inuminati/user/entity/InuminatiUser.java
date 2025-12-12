@@ -14,12 +14,15 @@ import java.time.LocalDate;
 public class InuminatiUser extends AbstractBaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
 
     @Column(name = "user_name")
     private String userName;
+
+    @Column(name = "nickname")
+    private String nickname;
 
     @Column(name = "email")
     private String email;
@@ -29,9 +32,6 @@ public class InuminatiUser extends AbstractBaseEntity {
 
     @Column(name = "profile_image_url")
     private String profileImageUrl;
-
-    @Column(name = "header_image_url")
-    private String headerImageUrl;
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
