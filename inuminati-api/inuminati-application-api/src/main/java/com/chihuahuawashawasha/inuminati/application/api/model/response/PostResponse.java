@@ -1,4 +1,4 @@
-package com.chihuahuawashawasha.inuminati.application.api.contract.response;
+package com.chihuahuawashawasha.inuminati.application.api.model.response;
 
 import lombok.Data;
 

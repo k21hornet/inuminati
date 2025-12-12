@@ -1,7 +1,7 @@
 package com.chihuahuawashawasha.inuminati.application.api.controller;
 
 import com.chihuahuawashawasha.inuminati.application.api.mapper.ProfileResponseMapper;
-import com.chihuahuawashawasha.inuminati.application.api.contract.response.ProfileResponse;
+import com.chihuahuawashawasha.inuminati.application.api.model.response.ProfileResponse;
 import com.chihuahuawashawasha.inuminati.user.dto.ProfileDto;
 import com.chihuahuawashawasha.inuminati.user.service.ProfileService;
 import lombok.RequiredArgsConstructor;

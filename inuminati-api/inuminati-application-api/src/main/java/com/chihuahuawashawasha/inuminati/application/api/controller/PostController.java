@@ -1,14 +1,12 @@
 package com.chihuahuawashawasha.inuminati.application.api.controller;
 
-import com.chihuahuawashawasha.inuminati.application.api.contract.request.PostRequest;
-import com.chihuahuawashawasha.inuminati.application.api.contract.response.PostResponse;
-import com.chihuahuawashawasha.inuminati.application.api.contract.response.PostsResponse;
+import com.chihuahuawashawasha.inuminati.application.api.model.request.PostRequest;
+import com.chihuahuawashawasha.inuminati.application.api.model.response.PostResponse;
+import com.chihuahuawashawasha.inuminati.application.api.model.response.PostsResponse;
 import com.chihuahuawashawasha.inuminati.application.api.mapper.PostRequestMapper;
 import com.chihuahuawashawasha.inuminati.application.api.mapper.PostResponseMapper;
-import com.chihuahuawashawasha.inuminati.exception.UserNotFoundException;
 import com.chihuahuawashawasha.inuminati.post.dto.PostDto;
 import com.chihuahuawashawasha.inuminati.post.service.PostService;
-import com.chihuahuawashawasha.inuminati.user.dto.ProfileDto;
 import com.chihuahuawashawasha.inuminati.user.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

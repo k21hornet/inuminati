@@ -1,6 +1,6 @@
 package com.chihuahuawashawasha.inuminati.application.api.mapper;
 
-import com.chihuahuawashawasha.inuminati.application.api.contract.request.PostRequest;
+import com.chihuahuawashawasha.inuminati.application.api.model.request.PostRequest;
 import com.chihuahuawashawasha.inuminati.post.dto.PostRequestDto;
 import org.mapstruct.Mapper;
 

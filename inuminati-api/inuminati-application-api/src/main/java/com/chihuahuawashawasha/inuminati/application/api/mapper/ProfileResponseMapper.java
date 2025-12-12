@@ -1,6 +1,6 @@
 package com.chihuahuawashawasha.inuminati.application.api.mapper;
 
-import com.chihuahuawashawasha.inuminati.application.api.contract.response.ProfileResponse;
+import com.chihuahuawashawasha.inuminati.application.api.model.response.ProfileResponse;
 import com.chihuahuawashawasha.inuminati.user.dto.ProfileDto;
 import org.mapstruct.Mapper;
 

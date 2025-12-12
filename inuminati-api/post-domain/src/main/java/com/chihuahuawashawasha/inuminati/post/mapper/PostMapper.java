@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface PostMapper {
 
-    @Mapping(target = "likeCount", expression = "java(post.getPostLikes().size())")
-    @Mapping(target = "commentCount", expression = "java(post.getPostComments().size())")
+    @Mapping(target = "likeCount", expression = "java(post.getPostLikes() != null ? post.getPostLikes().size() : 0)")
+    @Mapping(target = "commentCount", expression = "java(post.getPostComments() != null ? post.getPostComments().size() : 0)")
     PostDto toDto(Post post);
 }

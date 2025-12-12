@@ -1,4 +1,4 @@
-package com.chihuahuawashawasha.inuminati.application.api.contract.request;
+package com.chihuahuawashawasha.inuminati.application.api.model.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
