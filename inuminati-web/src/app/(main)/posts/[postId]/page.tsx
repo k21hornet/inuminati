@@ -1,20 +1,24 @@
 import { getPost } from "@/lib/api/post";
 import Image from "next/image";
+import PostUserInfo from "./_components/PostUserInfo";
+import { getUserName } from "@/lib/api/user";
+import CommentInput from "./_components/CommentInput";
+import { MdFavoriteBorder } from "react-icons/md";
+import { FaRegCommentAlt } from "react-icons/fa";
 
 type Props = {
   params: Promise<{ postId: string }>;
-};
-
-type PostImage = {
-  postImageId: number;
-  imageUrl: string;
-  imageOrder: number;
 };
 
 export default async function Post({ params }: Props) {
   const { postId } = await params;
 
   const post = await getPost(postId);
+
+  const response = await getUserName();
+  const currentUserName = response.userName;
+
+  const isCurrentUser = currentUserName === post.userName;
 
   return (
     <div className="flex gap-4 w-full h-full">
@@ -34,16 +38,23 @@ export default async function Post({ params }: Props) {
       </div>
 
       <div className="flex-1 h-full">
-        <div className="flex items-center gap-2 pb-4 border-b border-gray-300">
-          <div className="w-10 h-10 rounded-full bg-gray-200"></div>
-          <div className="font-bold">Test User</div>
-        </div>
+        <PostUserInfo post={post} isCurrentUser={isCurrentUser} />
 
         <div className="py-4 border-b border-gray-300">
-          {post.content && <p>{post.content}</p>}
+          {post.content && <p className="mb-2">{post.content}</p>}
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
+              <MdFavoriteBorder />
+              <span>{post.likeCount}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <FaRegCommentAlt />
+              <span>{post.commentCount}</span>
+            </div>
+          </div>
         </div>
 
-        <div className="py-4">コメント</div>
+        <CommentInput />
       </div>
     </div>
   );

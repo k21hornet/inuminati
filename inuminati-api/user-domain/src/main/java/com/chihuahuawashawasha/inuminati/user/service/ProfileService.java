@@ -17,13 +17,24 @@ public class ProfileService {
     private final ProfileMapper profileMapper;
 
     /**
-     * ユーザーのプロフィールを取得する。
+     * ユーザー名からユーザーのプロフィールを取得する。
      * @param userName ユーザー名
      * @return プロフィール
      */
-    public ProfileDto findProfile(String userName) {
+    public ProfileDto findProfileByUserName(String userName) {
         InuminatiUser user = inuminatiUserRepository.findByUserName(userName)
                 .orElseThrow(() -> new UserNotFoundException("ユーザーが見つかりません。user_name: " + userName));
+        return profileMapper.toProfileDto(user);
+    }
+
+    /**
+     * ユーザーIDからユーザーのプロフィールを取得する。
+     * @param userId ユーザーID
+     * @return プロフィール
+     */
+    public ProfileDto findProfileByUserId(String userId) {
+        InuminatiUser user = inuminatiUserRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("ユーザーが見つかりません。user_id: " + userId));
         return profileMapper.toProfileDto(user);
     }
 }

@@ -6,11 +6,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class PostResponse {
+public class PostDetailResponse {
 
     private String postId;
 
+    private String userName;
+
+    private String content;
+
     private List<PostImageResponse> postImages;
+
+    private Integer likeCount;
+
+    private Integer commentCount;
 
     private LocalDateTime createdAt;
 

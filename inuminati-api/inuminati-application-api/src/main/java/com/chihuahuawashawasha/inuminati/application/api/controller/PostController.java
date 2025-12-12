@@ -1,12 +1,14 @@
 package com.chihuahuawashawasha.inuminati.application.api.controller;
 
 import com.chihuahuawashawasha.inuminati.application.api.model.request.PostRequest;
+import com.chihuahuawashawasha.inuminati.application.api.model.response.PostDetailResponse;
 import com.chihuahuawashawasha.inuminati.application.api.model.response.PostResponse;
 import com.chihuahuawashawasha.inuminati.application.api.model.response.PostsResponse;
 import com.chihuahuawashawasha.inuminati.application.api.mapper.PostRequestMapper;
 import com.chihuahuawashawasha.inuminati.application.api.mapper.PostResponseMapper;
 import com.chihuahuawashawasha.inuminati.post.dto.PostDto;
 import com.chihuahuawashawasha.inuminati.post.service.PostService;
+import com.chihuahuawashawasha.inuminati.user.dto.ProfileDto;
 import com.chihuahuawashawasha.inuminati.user.service.ProfileService;
 import com.chihuahuawashawasha.inuminati.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -46,9 +48,11 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<PostResponse> getPost(@PathVariable String postId) {
+    public ResponseEntity<PostDetailResponse> getPost(@PathVariable String postId) {
+        PostDto postDto = postService.findPost(postId);
+        ProfileDto profileDto = profileService.findProfileByUserId(postDto.getUserId());
 
-        return ResponseEntity.ok(postResponseMapper.toResponse(postService.findPost(postId)));
+        return ResponseEntity.ok(postResponseMapper.toResponse(postDto, profileDto));
     }
 
     @PostMapping

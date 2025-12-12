@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping("/{userName}")
     public ResponseEntity<ProfileResponse> getProfile(@PathVariable String userName) {
-        ProfileDto profileDto = profileService.findProfile(userName);
+        ProfileDto profileDto = profileService.findProfileByUserName(userName);
         return ResponseEntity.ok(profileResponseMapper.toResponse(profileDto));
     }
 }
