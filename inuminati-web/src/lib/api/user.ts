@@ -1,7 +1,7 @@
 import { fetcher } from "@/util/fetcher";
 
-export const getProfile = async (userId: string) => {
-  return fetcher.get(`/users/${userId}`);
+export const getProfile = async (userName: string) => {
+  return fetcher.get(`/users/${userName}`);
 };
 
 export const signupUser = async (email: string, accessToken: string) => {

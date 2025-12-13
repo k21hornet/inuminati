@@ -34,23 +34,23 @@ public class UserController {
         ProfileDto profileDto = profileService.findProfileByUserName(userName);
 
         // フォロー関係を取得
-        String followerUserId = userService.findUserId(jwt.getClaimAsString("http://claim/email"));
-        String followingUserId = userService.findUserIdByUserName(userName);
-        FollowRelationshipDto followRelationship = userRelationshipService.findFollowRelationship(followerUserId, followingUserId);
+        String currentUserId = userService.findUserId(jwt.getClaimAsString("http://claim/email"));
+        String targetUserId = userService.findUserIdByUserName(userName);
+        FollowRelationshipDto followRelationship = userRelationshipService.findFollowRelationship(currentUserId, targetUserId);
         Boolean isFollowed = followRelationship.getIsFollowed();
         Boolean isFollowing = followRelationship.getIsFollowing();
         return ResponseEntity.ok(profileResponseMapper.toResponse(profileDto, isFollowed, isFollowing));
     }
 
-    @PostMapping("/{followingUserName}/follow")
+    @PostMapping("/{targetUserName}/follow")
     public ResponseEntity<Void> follow(
             @AuthenticationPrincipal Jwt jwt,
-            @PathVariable String followingUserName
+            @PathVariable String targetUserName
     ) {
-        String followerUserId = userService.findUserId(jwt.getClaimAsString("http://claim/email"));
-        String followingUserId = userService.findUserIdByUserName(followingUserName);
+        String currentUserId = userService.findUserId(jwt.getClaimAsString("http://claim/email"));
+        String targetUserId = userService.findUserIdByUserName(targetUserName);
 
-        userRelationshipService.handleFollow(followerUserId, followingUserId);
+        userRelationshipService.handleFollow(currentUserId, targetUserId);
         return ResponseEntity.ok().build();
     }
 }

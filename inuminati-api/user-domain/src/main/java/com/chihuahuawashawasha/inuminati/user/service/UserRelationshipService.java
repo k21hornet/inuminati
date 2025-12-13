@@ -17,43 +17,44 @@ public class UserRelationshipService {
 
     /**
      * フォロー・フォロー解除を取り扱う
-     * @param followerUserId フォローする人
-     * @param followingUserId フォローされる人
+     * @param currentUserId 現在のユーザー
+     * @param targetUserId フォロー対象ユーザー
      */
-    public void handleFollow(String followerUserId, String followingUserId) {
-        // すでにフォロー済みならフォロー解除
-        if (followRepository
-                .existsByFollowId_FollowerUserIdAndFollowId_FollowingUserId(followerUserId,followingUserId)) {
-            followRepository
-                    .deleteByFollowId_FollowerUserIdAndFollowId_FollowingUserId(followerUserId,followingUserId);
-            return;
+    public void handleFollow(String currentUserId, String targetUserId) {
+        // 自己フォローチェック
+        if (currentUserId.equals(targetUserId)) {
+            throw new UserRelationshipException("自分自身をフォローすることはできません");
         }
 
-        if (followerUserId.equals(followingUserId)) {
-            throw new UserRelationshipException("自分自身をフォローすることはできません");
+        // すでにフォロー済みならフォロー解除
+        if (followRepository
+                .existsByFollowId_FollowerUserIdAndFollowId_FollowingUserId(currentUserId,targetUserId)) {
+            followRepository
+                    .deleteByFollowId_FollowerUserIdAndFollowId_FollowingUserId(currentUserId,targetUserId);
+            return;
         }
 
         Follow follow = new Follow();
         Follow.FollowId id = new Follow.FollowId();
-        id.setFollowerUserId(followerUserId);
-        id.setFollowingUserId(followingUserId);
+        id.setFollowerUserId(currentUserId);
+        id.setFollowingUserId(targetUserId);
         follow.setFollowId(id);
         followRepository.save(follow);
     }
 
     /**
      * ユーザーとのフォロー関係を取得
-     * @param actorUserId ユーザー自身
+     * @param currentUserId ユーザー自身
      * @param targetUserId 対象ユーザー
      * @return FollowRelationshipDto
      */
-    public FollowRelationshipDto findFollowRelationship(String actorUserId, String targetUserId) {
+    public FollowRelationshipDto findFollowRelationship(String currentUserId, String targetUserId) {
         // 対象ユーザーにフォローされているか
         Boolean isFollowed = followRepository
-                .existsByFollowId_FollowerUserIdAndFollowId_FollowingUserId(targetUserId,actorUserId);
+                .existsByFollowId_FollowerUserIdAndFollowId_FollowingUserId(targetUserId,currentUserId);
         // 対象ユーザーをフォローしているか
         Boolean isFollowing = followRepository
-            .existsByFollowId_FollowerUserIdAndFollowId_FollowingUserId(actorUserId,targetUserId);
+            .existsByFollowId_FollowerUserIdAndFollowId_FollowingUserId(currentUserId,targetUserId);
         return FollowRelationshipDto.builder()
                 .isFollowed(isFollowed)
                 .isFollowing(isFollowing)
