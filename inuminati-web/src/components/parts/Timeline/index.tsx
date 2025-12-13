@@ -24,7 +24,7 @@ type PostImage = {
 
 export default function Timeline({ posts }: Props) {
   return (
-    <div className="grid grid-cols-3 gap-1 p-6">
+    <div className="grid grid-cols-3 gap-1 md:p-6">
       {posts.map((post) => (
         <Link href={`/posts/${post.postId}`} key={post.postId}>
           <Image

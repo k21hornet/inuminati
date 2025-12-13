@@ -8,78 +8,79 @@ import { MdLogout } from "react-icons/md";
 import Link from "next/link";
 import { getUserName } from "@/lib/api/user";
 
+const navigationTopItems = [
+  { href: "/home", icon: IoIosHome, label: "ホーム" },
+  { href: "/messages", icon: RiMessage2Fill, label: "メッセージ" },
+  { href: "/posts/new", icon: MdAddBox, label: "投稿" },
+  { href: "/shops", icon: FaShoppingBag, label: "ショップ" },
+];
+const navigationBottomItems = [
+  { href: "/settings", icon: IoSettingsSharp, label: "設定" },
+  { href: "/auth/logout", icon: MdLogout, label: "ログアウト" },
+];
+
 export default async function Sidebar() {
   const userNameResponse = await getUserName();
   const userName = userNameResponse.userName;
 
   return (
-    <div className="flex flex-col w-72 h-screen p-4 border-r border-gray-300">
+    <div className="hidden md:flex md:flex-col w-72 h-screen p-4 border-r border-gray-300">
       <div className="mb-4 px-2 py-4 text-3xl">
         <Link href="/home">Inuminati</Link>
       </div>
 
-      <ul>
-        <li className="px-2 py-3 text-lg hover:bg-gray-100 rounded">
-          <Link href="/home" className="flex gap-2 items-center block w-full">
-            <IoIosHome />
-            ホーム
-          </Link>
-        </li>
-        <li className="px-2 py-3 text-lg hover:bg-gray-100 rounded">
-          <Link
-            href="/messages"
-            className="flex gap-2 items-center block w-full"
-          >
-            <RiMessage2Fill />
-            メッセージ
-          </Link>
-        </li>
-        <li className="px-2 py-3 text-lg hover:bg-gray-100 rounded">
-          <Link
-            href="/posts/new"
-            className="flex gap-2 items-center block w-full"
-          >
-            <MdAddBox />
-            投稿
-          </Link>
-        </li>
-        <li className="px-2 py-3 text-lg hover:bg-gray-100 rounded">
-          <Link href="/shops" className="flex gap-2 items-center block w-full">
-            <FaShoppingBag />
-            ショップ
-          </Link>
-        </li>
-      </ul>
+      <nav className="flex-1">
+        <ul className="space-y-2">
+          {navigationTopItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <li
+                key={item.href}
+                className="p-2 text-lg hover:bg-gray-100 rounded"
+              >
+                <Link
+                  href={item.href}
+                  className="flex gap-2 items-center block w-full"
+                >
+                  <Icon />
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+          <li className="p-2 text-lg hover:bg-gray-100 rounded">
+            <Link
+              href={`/users/${userName}`}
+              className="flex gap-2 items-center block w-full"
+            >
+              <MdAccountCircle />
+              プロフィール
+            </Link>
+          </li>
+        </ul>
+      </nav>
 
-      <ul className="mt-auto">
-        <li className="px-2 py-3 text-lg hover:bg-gray-100 rounded">
-          <Link
-            href="/auth/logout  "
-            className="flex gap-2 items-center block w-full"
-          >
-            <MdLogout />
-            ログアウト
-          </Link>
-        </li>
-        <li className="px-2 py-3 text-lg hover:bg-gray-100 rounded">
-          <Link
-            href="/settings"
-            className="flex gap-2 items-center block w-full"
-          >
-            <IoSettingsSharp />
-            設定
-          </Link>
-        </li>
-        <li className="px-2 py-3 text-lg hover:bg-gray-100 rounded">
-          <Link
-            href={`/users/${userName}`}
-            className="flex gap-2 items-center block w-full"
-          >
-            <MdAccountCircle />
-            プロフィール
-          </Link>
-        </li>
-      </ul>
+      <nav className="mt-auto">
+        <ul className="space-y-2">
+          {navigationBottomItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <li
+                key={item.href}
+                className="p-2 text-lg hover:bg-gray-100 rounded"
+              >
+                <Link
+                  href={item.href}
+                  className="flex gap-2 items-center block w-full"
+                >
+                  <Icon />
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
     </div>
   );
 }

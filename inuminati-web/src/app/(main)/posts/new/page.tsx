@@ -1,6 +1,10 @@
 "use client";
 
 import { createPost, uploadImage } from "@/actions/post";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -44,13 +48,28 @@ export default function CreatePost() {
   };
 
   return (
-    <div>
-      <h1>新規投稿</h1>
+    <div className="p-4 md:p-0">
+      <h1 className="text-2xl font-bold">新規投稿</h1>
+
       <form onSubmit={handleSubmit}>
-        <input type="file" onChange={handleImageUpload} />
-        {imageUrl && <img src={imageUrl} alt="Uploaded" />}
-        <textarea name="content" placeholder="投稿内容" />
-        <button type="submit">投稿</button>
+        <Input
+          type="file"
+          placeholder="画像をアップロード"
+          onChange={handleImageUpload}
+        />
+        {imageUrl && (
+          <Image
+            src={imageUrl}
+            alt="投稿画像"
+            width={400}
+            height={400}
+            className="object-cover"
+          />
+        )}
+        <Textarea name="content" placeholder="投稿内容" rows={2} />
+        <Button type="submit" className="w-full md:w-24">
+          投稿
+        </Button>
       </form>
     </div>
   );

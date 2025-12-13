@@ -21,11 +21,11 @@ export default async function Post({ params }: Props) {
   const isCurrentUser = currentUserName === post.userName;
 
   return (
-    <div className="flex gap-4 w-full h-full">
-      <div className="max-w-2xl h-full bg-black">
+    <div className="md:flex gap-4 w-full h-full">
+      <div className="max-w-2xl md:h-full bg-black">
         <div
           key={post.postImages[0].postImageId}
-          className="flex items-center h-full"
+          className="flex items-center md:h-full"
         >
           <Image
             src={post.postImages[0].imageUrl}
