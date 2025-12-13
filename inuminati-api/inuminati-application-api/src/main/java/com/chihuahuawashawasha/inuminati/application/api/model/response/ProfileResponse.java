@@ -14,4 +14,8 @@ public class ProfileResponse {
     private String selfIntroduction;
 
     private String profileImageUrl;
+
+    private Boolean isFollowed;
+
+    private Boolean isFollowing;
 }

@@ -60,7 +60,7 @@ export default function PostUserInfo({ post, isCurrentUser }: Props) {
       <div className="flex items-center justify-between gap-2 pb-4 border-b border-gray-300 relative">
         <div className="flex items-center gap-2">
           <div className="w-10 h-10 rounded-full bg-gray-200"></div>
-          <div className="font-bold">{post.userName}</div>
+          <div className="font-bold">@{post.userName}</div>
         </div>
         {isCurrentUser && (
           <div ref={buttonRef} className="inline-block">

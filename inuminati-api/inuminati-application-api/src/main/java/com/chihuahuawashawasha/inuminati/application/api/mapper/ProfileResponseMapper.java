@@ -7,5 +7,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface ProfileResponseMapper {
 
-    ProfileResponse toResponse(ProfileDto dto);
+    ProfileResponse toResponse(ProfileDto dto, Boolean isFollowed, Boolean isFollowing);
 }
