@@ -3,8 +3,8 @@ import Image from "next/image";
 import PostUserInfo from "./_components/PostUserInfo";
 import { getUserName } from "@/lib/api/user";
 import CommentInput from "./_components/CommentInput";
-import { MdFavoriteBorder } from "react-icons/md";
 import { FaRegCommentAlt } from "react-icons/fa";
+import LikeButton from "./_components/LikeButton";
 
 type Props = {
   params: Promise<{ postId: string }>;
@@ -42,11 +42,12 @@ export default async function Post({ params }: Props) {
 
         <div className="py-4 border-b border-gray-300">
           {post.content && <p className="mb-2">{post.content}</p>}
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2">
-              <MdFavoriteBorder />
-              <span>{post.likeCount}</span>
-            </div>
+          <div className="flex items-center gap-4">
+            <LikeButton
+              postId={postId}
+              likeCount={post.likeCount}
+              isLiked={post.isLiked}
+            />
             <div className="flex items-center gap-2">
               <FaRegCommentAlt />
               <span>{post.commentCount}</span>

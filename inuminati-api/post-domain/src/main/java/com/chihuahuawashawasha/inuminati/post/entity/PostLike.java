@@ -11,15 +11,22 @@ import lombok.Setter;
 @Table(name = "post_likes")
 public class PostLike extends AbstractBaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_like_id")
-    private Long postLikeId;
-
-    @Column(name = "user_id", nullable = false)
-    private String userId;
+    @EmbeddedId
+    private PostLikeId postLikeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "post_id", insertable = false, updatable = false)
     private Post post;
+
+    @Getter
+    @Setter
+    @Embeddable
+    public static class PostLikeId {
+
+        @Column(name = "post_id", nullable = false)
+        private String postId;
+
+        @Column(name = "user_id", nullable = false)
+        private String userId;
+    }
 }

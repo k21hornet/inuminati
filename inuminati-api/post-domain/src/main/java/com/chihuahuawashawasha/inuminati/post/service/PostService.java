@@ -4,7 +4,9 @@ import com.chihuahuawashawasha.inuminati.post.dto.PostRequestDto;
 import com.chihuahuawashawasha.inuminati.post.dto.PostDto;
 import com.chihuahuawashawasha.inuminati.post.entity.Post;
 import com.chihuahuawashawasha.inuminati.post.entity.PostImage;
+import com.chihuahuawashawasha.inuminati.post.entity.PostLike;
 import com.chihuahuawashawasha.inuminati.post.mapper.PostMapper;
+import com.chihuahuawashawasha.inuminati.post.repository.PostLikeRepository;
 import com.chihuahuawashawasha.inuminati.post.repository.PostRepository;
 import com.chihuahuawashawasha.inuminati.util.ShortIdGenerator;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,7 +14,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +22,8 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+
+    private final PostLikeRepository postLikeRepository;
 
     private final PostMapper postMapper;
 
@@ -82,5 +85,35 @@ public class PostService {
 
         Post savedPost = postRepository.save(post);
         return postMapper.toDto(savedPost);
+    }
+
+    /**
+     * いいね
+     * @param userId ユーザーID
+     * @param postId 投稿ID
+     */
+    public void likePost(String userId, String postId) {
+        // 既にいいねが存在すれば取り消す
+        if (postLikeRepository.existsByPostLikeId_PostIdAndPostLikeId_UserId(postId, userId)) {
+            postLikeRepository.deleteByPostLikeId_PostIdAndPostLikeId_UserId(postId, userId);
+            return;
+        }
+
+        PostLike postLike = new PostLike();
+        PostLike.PostLikeId id = new PostLike.PostLikeId();
+        id.setUserId(userId);
+        id.setPostId(postId);
+        postLike.setPostLikeId(id);
+        postLikeRepository.save(postLike);
+    }
+
+    /**
+     * いいね済みかどうか判定
+     * @param userId ユーザーID
+     * @param postId 投稿ID
+     * @return いいね済みかどうか
+     */
+    public boolean isLikedByUser(String userId, String postId) {
+        return postLikeRepository.existsByPostLikeId_PostIdAndPostLikeId_UserId(postId, userId);
     }
 }

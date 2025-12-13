@@ -9,6 +9,8 @@ public class ProfileResponse {
 
     private String userName;
 
+    private String nickname;
+
     private String selfIntroduction;
 
     private String profileImageUrl;

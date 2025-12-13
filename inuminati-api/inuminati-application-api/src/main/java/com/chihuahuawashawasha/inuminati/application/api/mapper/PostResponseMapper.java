@@ -12,5 +12,5 @@ public interface PostResponseMapper {
 
     PostResponse toResponse(PostDto postDto);
 
-    PostDetailResponse toResponse(PostDto postDto, ProfileDto profileDto);
+    PostDetailResponse toResponse(PostDto postDto, ProfileDto profileDto, Boolean isLiked);
 }

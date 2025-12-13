@@ -37,22 +37,36 @@ public class PostController {
     private final PostRequestMapper postRequestMapper;
 
     @GetMapping
-    public ResponseEntity<PostsResponse> getPosts(@RequestParam(required = false) String userId) {
-        List<PostResponse> posts = (userId != null
-                ? postService.findAllByUserId(userId)
-                : postService.findAll())
-                .stream()
-                .map(postResponseMapper::toResponse)
-                .toList();
+    public ResponseEntity<PostsResponse> getPosts(@RequestParam(required = false) String userName) {
+        List<PostResponse> posts;
+        if (userName != null) {
+            String userId = userService.findUserIdByUserName(userName);
+            posts = postService.findAllByUserId(userId)
+                    .stream()
+                    .map(postResponseMapper::toResponse)
+                    .toList();
+        } else {
+            posts = postService.findAll()
+                    .stream()
+                    .map(postResponseMapper::toResponse)
+                    .toList();
+        }
         return ResponseEntity.ok(PostsResponse.builder().posts(posts).build());
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<PostDetailResponse> getPost(@PathVariable String postId) {
+    public ResponseEntity<PostDetailResponse> getPost(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable String postId
+    ) {
         PostDto postDto = postService.findPost(postId);
         ProfileDto profileDto = profileService.findProfileByUserId(postDto.getUserId());
 
-        return ResponseEntity.ok(postResponseMapper.toResponse(postDto, profileDto));
+        // ユーザーがいいね済みかどうか判定
+        String userId = userService.findUserId(jwt.getClaimAsString("http://claim/email"));
+        Boolean isLiked = postService.isLikedByUser(userId, postId);
+
+        return ResponseEntity.ok(postResponseMapper.toResponse(postDto, profileDto, isLiked));
     }
 
     @PostMapping
@@ -64,5 +78,15 @@ public class PostController {
 
         PostDto createPostDto = postService.createPost(userId, postRequestMapper.toDto(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(postResponseMapper.toResponse(createPostDto));
+    }
+
+    @PostMapping("/{postId}/like")
+    public ResponseEntity<Void> likePost(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable String postId) {
+        String userId = userService.findUserId(jwt.getClaimAsString("http://claim/email"));
+
+        postService.likePost(userId, postId);
+        return ResponseEntity.noContent().build();
     }
 }

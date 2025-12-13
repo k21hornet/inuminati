@@ -17,7 +17,7 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<Void> signup(@RequestBody SignupRequest request, @AuthenticationPrincipal Jwt jwt) {
+    public ResponseEntity<Void> signup(@RequestBody SignupRequest request) {
         String email = request.getEmail();
         userService.createUserIfNotExist(email);
         return ResponseEntity.noContent().build();

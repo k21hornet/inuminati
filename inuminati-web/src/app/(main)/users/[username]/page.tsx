@@ -34,6 +34,7 @@ export default async function Profile({ params }: Props) {
         {/* ユーザー情報 */}
         <div className="flex-1">
           <h1 className="text-2xl font-bold mb-2">{profile.userName}</h1>
+          <h2 className="text-gray-700">{profile.nickname}</h2>
           {profile.selfIntroduction && (
             <p className="text-gray-700">{profile.selfIntroduction}</p>
           )}

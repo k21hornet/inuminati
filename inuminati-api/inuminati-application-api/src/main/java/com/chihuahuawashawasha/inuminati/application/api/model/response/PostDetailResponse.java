@@ -16,6 +16,8 @@ public class PostDetailResponse {
 
     private List<PostImageResponse> postImages;
 
+    private Boolean isLiked;
+
     private Integer likeCount;
 
     private Integer commentCount;

@@ -53,4 +53,15 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("ユーザーが見つかりません。email: " + email));
         return user.getUserName();
     }
+
+    /**
+     * ユーザー名からユーザーIDを取得
+     * @param userName ユーザー名
+     * @return ユーザーID
+     */
+    public String findUserIdByUserName(String userName) {
+        InuminatiUser user = inuminatiUserRepository.findByUserName(userName)
+                .orElseThrow(() -> new UserNotFoundException("ユーザーが見つかりません。user_name: " + userName));
+        return user.getUserId();
+    }
 }

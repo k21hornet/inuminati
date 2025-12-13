@@ -56,3 +56,7 @@ export const uploadImage = async (formData: FormData): Promise<string> => {
 export const createPost = async (postData: PostData) => {
   return fetcher.post("/posts", postData);
 };
+
+export const likePost = async (postId: string) => {
+  return fetcher.post(`/posts/${postId}/like`);
+};
