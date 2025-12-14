@@ -2,6 +2,7 @@ package com.chihuahuawashawasha.inuminati.application.api.controller;
 
 import com.chihuahuawashawasha.inuminati.application.api.mapper.ProfileResponseMapper;
 import com.chihuahuawashawasha.inuminati.application.api.model.response.ProfileResponse;
+import com.chihuahuawashawasha.inuminati.user.dto.FollowCountDto;
 import com.chihuahuawashawasha.inuminati.user.dto.FollowRelationshipDto;
 import com.chihuahuawashawasha.inuminati.user.dto.ProfileDto;
 import com.chihuahuawashawasha.inuminati.user.service.ProfileService;
@@ -39,7 +40,17 @@ public class UserController {
         FollowRelationshipDto followRelationship = userRelationshipService.findFollowRelationship(currentUserId, targetUserId);
         Boolean isFollowed = followRelationship.getIsFollowed();
         Boolean isFollowing = followRelationship.getIsFollowing();
-        return ResponseEntity.ok(profileResponseMapper.toResponse(profileDto, isFollowed, isFollowing));
+
+        // フォロワー・フォロー中のユーザー数を取得
+        FollowCountDto followCountDto = userRelationshipService.calcFollowCount(targetUserId);
+
+        return ResponseEntity.ok(profileResponseMapper.toResponse(
+                profileDto,
+                followRelationship.getIsFollowed(),
+                followRelationship.getIsFollowing(),
+                followCountDto.getFollowerCount(),
+                followCountDto.getFollowingCount()
+        ));
     }
 
     @PostMapping("/{targetUserName}/follow")

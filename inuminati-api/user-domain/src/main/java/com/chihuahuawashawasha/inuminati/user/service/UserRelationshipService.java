@@ -1,6 +1,7 @@
 package com.chihuahuawashawasha.inuminati.user.service;
 
 import com.chihuahuawashawasha.inuminati.exception.UserRelationshipException;
+import com.chihuahuawashawasha.inuminati.user.dto.FollowCountDto;
 import com.chihuahuawashawasha.inuminati.user.dto.FollowRelationshipDto;
 import com.chihuahuawashawasha.inuminati.user.entity.Follow;
 import com.chihuahuawashawasha.inuminati.user.repository.FollowRepository;
@@ -58,6 +59,20 @@ public class UserRelationshipService {
         return FollowRelationshipDto.builder()
                 .isFollowed(isFollowed)
                 .isFollowing(isFollowing)
+                .build();
+    }
+
+    /**
+     * ユーザーのフォロー数を取得
+     * @param userId 対象ユーザー
+     * @return フォロワー数、フォロー中ユーザー数
+     */
+    public FollowCountDto calcFollowCount(String userId) {
+        int followerCount = followRepository.calcFollowerCount(userId);
+        int followingCount = followRepository.calcFollowingCount(userId);
+        return FollowCountDto.builder()
+                .followerCount(followerCount)
+                .followingCount(followingCount)
                 .build();
     }
 }

@@ -4,6 +4,7 @@ import { getPosts } from "@/lib/api/post";
 import { getProfile, getUserName } from "@/lib/api/user";
 import Image from "next/image";
 import FollowButton from "./_components/FollowButton";
+import Link from "next/link";
 
 type Props = {
   params: Promise<{ username: string }>;
@@ -56,15 +57,17 @@ export default async function Profile({ params }: Props) {
               <p className="text-gray-700">{profile.selfIntroduction}</p>
             )}
             <div className="flex items-center gap-2">
-              <span>フォロワーn人</span>
-              <span>フォロー中n人</span>
+              <span>フォロワー{profile.followerCount}人</span>
+              <span>フォロー中{profile.followingCount}人</span>
             </div>
           </div>
         </div>
         {isCurrentUser && (
           <div className="flex lg:flex-col gap-2">
             <Button className="flex-1 lg:w-48">プロフィールを編集</Button>
-            <Button className="flex-1 lg:w-48">投稿する</Button>
+            <Button className="flex-1 lg:w-48">
+              <Link href="/posts/new">投稿する</Link>
+            </Button>
           </div>
         )}
         {!isCurrentUser && (

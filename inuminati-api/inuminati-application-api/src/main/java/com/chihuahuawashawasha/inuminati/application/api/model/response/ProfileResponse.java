@@ -15,7 +15,23 @@ public class ProfileResponse {
 
     private String profileImageUrl;
 
+    /**
+     * 自身がこのユーザーにフォローされているか
+     */
     private Boolean isFollowed;
 
+    /**
+     * 自身がこのユーザーをフォローしているか
+     */
     private Boolean isFollowing;
+
+    /**
+     * ユーザーのフォロワー数
+     */
+    private Integer followerCount;
+
+    /**
+     * ユーザーがフォローしてるユーザー数
+     */
+    private Integer followingCount;
 }
