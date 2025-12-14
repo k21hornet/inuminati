@@ -1,0 +1,18 @@
+services:
+  db:
+    image: mysql:8.0
+    platform: linux/amd64
+    container_name: inuminati-db
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: inuminati_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data-for-local:/var/lib/mysql
+      # - ./data-for-dev:/var/lib/mysql
+    restart: always
+    networks:
+      - default
+networks:
+  default:

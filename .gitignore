@@ -1,0 +1,4 @@
+.DS_Store
+.env
+/database/data-for-local
+inuminati-web/public/uploads

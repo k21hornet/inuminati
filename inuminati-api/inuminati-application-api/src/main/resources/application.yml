@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: inuminati-api
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Tokyo
+  datasource:
+    url: jdbc:mysql://localhost:3306/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    time-zone: Asia/Tokyo
+auth0:
+  issuer: ${ISSUER}
+  audience: ${AUDIENCE}
