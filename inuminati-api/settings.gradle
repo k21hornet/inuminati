@@ -1,6 +1,1 @@
 rootProject.name = 'inuminati-api'
-
-include 'inuminati-application-api'
-include 'inuminati-domain'
-include 'post-domain'
-include 'user-domain'

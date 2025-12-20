@@ -1,7 +1,6 @@
 import { Auth0Client } from "@auth0/nextjs-auth0/server";
 import { NextResponse } from "next/server";
 import { signupUser } from "./api/user";
-// import { signupUser } from "./api/user";
 
 export const auth0 = new Auth0Client({
   domain: process.env.AUTH0_DOMAIN,
