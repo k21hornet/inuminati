@@ -4,6 +4,7 @@ import { getPosts } from "@/lib/api/post";
 import { getProfile, getUserName } from "@/lib/api/user";
 import Image from "next/image";
 import FollowButton from "./_components/FollowButton";
+import EditProfileButton from "./_components/EditProfileButton";
 import Link from "next/link";
 
 type Props = {
@@ -64,7 +65,14 @@ export default async function Profile({ params }: Props) {
         </div>
         {isCurrentUser && (
           <div className="flex lg:flex-col gap-2">
-            <Button className="flex-1 lg:w-48">プロフィールを編集</Button>
+            <EditProfileButton
+              profile={{
+                nickname: profile.nickname,
+                userName: profile.userName,
+                selfIntroduction: profile.selfIntroduction || "",
+                profileImageUrl: profile.profileImageUrl,
+              }}
+            />
             <Button className="flex-1 lg:w-48">
               <Link href="/posts/new">投稿する</Link>
             </Button>
