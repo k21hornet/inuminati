@@ -1,4 +1,4 @@
-CREATE TABLE inuminati_db.users
+CREATE TABLE inuminati.users
 (
     user_id             CHAR(36) PRIMARY KEY DEFAULT (UUID()) COMMENT 'ユーザーID',
     user_name           VARCHAR(50)     NOT NULL UNIQUE COMMENT 'ユーザー名',
@@ -12,7 +12,7 @@ CREATE TABLE inuminati_db.users
 ) COMMENT '[TRANSACTIONAL] ユーザー'
 ;
 
-CREATE TABLE inuminati_db.follows
+CREATE TABLE inuminati.follows
 (
     follower_user_id         CHAR(36)        NOT NULL COMMENT 'フォローしているユーザーID',
     following_user_id        CHAR(36)        NOT NULL COMMENT 'フォローされているユーザーID',

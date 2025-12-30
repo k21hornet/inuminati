@@ -1,4 +1,4 @@
-CREATE TABLE inuminati_db.posts
+CREATE TABLE inuminati.posts
 (
     post_id             CHAR(12) PRIMARY KEY            COMMENT '投稿ID',
     user_id             CHAR(36)        NOT NULL        COMMENT 'ユーザーID',
@@ -9,7 +9,7 @@ CREATE TABLE inuminati_db.posts
 ) COMMENT '[TRANSACTIONAL] 投稿'
 ;
 
-CREATE TABLE inuminati_db.post_images
+CREATE TABLE inuminati.post_images
 (
     post_image_id       BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '投稿画像ID',
     post_id             CHAR(12)        NOT NULL        COMMENT '投稿ID',
@@ -21,7 +21,7 @@ CREATE TABLE inuminati_db.post_images
 ) COMMENT '[TRANSACTIONAL] 投稿画像'
 ;
 
-CREATE TABLE inuminati_db.post_likes
+CREATE TABLE inuminati.post_likes
 (
     post_id             CHAR(12)        NOT NULL        COMMENT '投稿ID',
     user_id             CHAR(36)        NOT NULL        COMMENT 'ユーザーID',
@@ -33,7 +33,7 @@ CREATE TABLE inuminati_db.post_likes
 ) COMMENT '[TRANSACTIONAL] 投稿いいね'
 ;
 
-CREATE TABLE inuminati_db.post_saves
+CREATE TABLE inuminati.post_saves
 (
     post_save_id        BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '投稿保存ID',
     post_id             CHAR(12)        NOT NULL        COMMENT '投稿ID',
@@ -45,7 +45,7 @@ CREATE TABLE inuminati_db.post_saves
 ) COMMENT '[TRANSACTIONAL] 投稿保存'
 ;
 
-CREATE TABLE inuminati_db.post_comments
+CREATE TABLE inuminati.post_comments
 (
     post_comment_id     BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '投稿コメントID',
     post_id             CHAR(12)        NOT NULL        COMMENT '投稿ID',

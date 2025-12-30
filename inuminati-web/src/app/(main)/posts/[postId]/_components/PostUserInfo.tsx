@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 
 type Post = {
   postId: string;
@@ -17,6 +18,7 @@ export default function PostUserInfo({ post, isCurrentUser }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -58,7 +60,10 @@ export default function PostUserInfo({ post, isCurrentUser }: Props) {
   return (
     <>
       <div className="flex items-center justify-between gap-2 pb-4 border-b border-gray-300 relative">
-        <div className="flex items-center gap-2">
+        <div
+          className="flex items-center gap-2 cursor-pointer"
+          onClick={() => router.push(`/users/${post.userName}`)}
+        >
           <div className="w-10 h-10 rounded-full bg-gray-200"></div>
           <div className="font-bold">@{post.userName}</div>
         </div>

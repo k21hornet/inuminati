@@ -1,4 +1,5 @@
 .DS_Store
 .env
 /database/data-for-local
+/database/data-for-prod
 inuminati-web/public/uploads
