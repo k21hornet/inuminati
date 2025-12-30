@@ -7,6 +7,9 @@ RUN npm install
 
 COPY . .
 
+RUN mkdir -p public/uploads/images && \
+    chmod -R 755 public/uploads
+
 ENV NODE_ENV=production
 RUN npm run build
 
