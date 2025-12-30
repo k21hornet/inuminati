@@ -1,0 +1,56 @@
+version: "3.9"
+services:
+  #  データベースコンテナ
+  mysql-database:
+    image: database:0.2.0
+    platform: linux/amd64
+    container_name: docker-db
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./database/data-for-prod:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: "mysql -h localhost -u root -p${MYSQL_ROOT_PASSWORD} -e 'SHOW DATABASES;'"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  #  REST APIコンテナ
+  spring-restapi:
+    image: inuminati-api:0.2.0
+    container_name: docker-restapi
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
+      AUTH0_ISSUER: ${AUTH0_ISSUER}
+      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE}
+    command: java -jar /app/inuminati-api.jar
+    healthcheck:
+      test: "nc -zv localhost 8080"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 0s
+    depends_on:
+      mysql-database:
+        condition: service_healthy
+
+  #  フロントコンテナ
+  next-frontapp:
+    image: inuminati-web:0.2.0
+    container_name: docker-frontapp
+    ports:
+      - "3001:3000"
+    depends_on:
+      spring-restapi:
+        condition: service_healthy
