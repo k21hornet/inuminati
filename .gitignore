@@ -1,0 +1,21 @@
+# Environment
+.env
+.env.local
+
+# Docs
+/paw/private
+
+# Go
+brain/bin/
+brain/vendor/
+
+# Node
+muzzle/node_modules/
+muzzle/.next/
+muzzle/.env.local
+
+# OS
+.DS_Store
+
+# 画像
+brain/uploads/
