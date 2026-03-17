@@ -1,0 +1,52 @@
+services:
+  inuminati-db:
+    image: mysql:8.0
+    container_name: inuminati-db
+    ports:
+      - "3367:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      TZ: Asia/Tokyo
+    volumes:
+      - inuminati_data:/var/lib/mysql
+    healthcheck:
+      test: "mysql -h localhost -u root -p${MYSQL_ROOT_PASSWORD} -e 'SHOW DATABASES;'"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+
+  inuminati-brain:
+    image: ${DOCKER_REGISTRY}/inuminati:brain-${BRAIN_VERSION}
+    container_name: inuminati-brain
+    ports:
+      - "8081:8080"
+    environment:
+      DB_DSN: root:${MYSQL_ROOT_PASSWORD}@tcp(inuminati-db:3306)/${MYSQL_DATABASE}?parseTime=true
+      PORT: "8080"
+      GIN_MODE: release
+      AUTH0_DOMAIN: ${AUTH0_DOMAIN}
+      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE}
+      CORS_ALLOW_ORIGINS: ${CORS_ALLOW_ORIGINS}
+      STORAGE_BASE_URL: ${STORAGE_BASE_URL}
+    volumes:
+      - uploads_data:/app/uploads
+    depends_on:
+      inuminati-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  inuminati-muzzle:
+    image: ${DOCKER_REGISTRY}/inuminati:muzzle-${MUZZLE_VERSION}
+    container_name: inuminati-muzzle
+    ports:
+      - "3001:3000"
+    environment:
+      API_URL: http://inuminati-brain:8080
+    restart: unless-stopped
+
+volumes:
+  inuminati_data:
+  uploads_data:
